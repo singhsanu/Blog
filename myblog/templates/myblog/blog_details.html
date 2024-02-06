@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLOG DETAILS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-2">
+        <h2 class="text-center">{{ obj.blog_cat }}</h2>
+        <img src="{{ obj.cover_image.url }}" class="card-img-top text-center" alt="...">
+        <h2 class="text-center">{{ obj.blog_name }}</h2>
+        
+        {{ obj.blog_description | safe}}
+        
+
+    </div>
+
+    <div class="container text-center">
+        {% if user.is_authenticated %}
+            <a href="{% url 'add_like' obj.id %}" class="btn btn-primary">Like this post</a>
+        {% else %}
+            <p>Login to like this post</p>
+        {% endif %}
+
+        <span class="container text-center">
+            <h3>LIKES: {{ obj.like_count }}</h3>
+            <h3>Total Views: {{ obj.view_count }}</h3>
+        </span>
+
+        <!-- Comment section -->
+    <h2>Comments</h2>
+    {% for comment in obj.comments.all %}
+        <p>{{ comment.text }} by {{ comment.author.username }} on {{ comment.created_date }}</p>
+        {% if comment.author == user %}
+            <a href="{% url 'edit_comment' blog_id=obj.id comment_id=comment.id %}">Edit</a>
+            <a href="{% url 'delete_comment' blog_id=obj.id comment_id=comment.id %}">Delete</a>
+        {% endif %}
+    {% endfor %}
+
+    <!-- Add comment form -->
+    {% if user.is_authenticated %}
+        <h3>Add a Comment</h3>
+        <form method="post" action="{% url 'add_comment' blog_id=obj.id %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    {% else %}
+        <p>Login to add comments</p>
+    {% endif %}
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

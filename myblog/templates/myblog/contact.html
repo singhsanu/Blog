@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body style="background-color: antiquewhite;">
+    {% include 'myblog/navbar.html' %} 
+    <!-- <div class="container text-center">
+        <h1 class="alert alert-primary">Contact Page</h1>
+    </div> -->
+    <div class="container">
+        {% if feedback %}
+        <h1 class="alert alert-success mt-2">{{ feedback }}</h1>
+        {% endif %}
+
+
+        <form method="post" action=''>
+            {% csrf_token %}
+
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="user_email" name="user_email" aria-describedby="emailHelp">
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <!-- <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Message</label>
+              <input type="text" class="form-control" id="message">
+            </div> -->
+
+            <div class="form-floating mt-4">
+                <textarea class="form-control" placeholder="Leave a comment here" id="message" name="message" maxlength="200" required style="height: 100px"></textarea>
+                <label for="floatingTextarea2">Comments</label>
+              </div>
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+              </div>
+            <button type="submit" class="btn btn-primary mt-4">Submit</button>
+          </form>
+        </div>
+    <div class="container text-center">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3507.968097378825!2d77.28117247528202!3d28.45037807576474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce0ab6fec0aab%3A0x87c9e10e1ae0b0fc!2sManav%20Rachna%20International%20Institute%20Of%20Research%20And%20Studies!5e0!3m2!1sen!2sin!4v1705400017771!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <div>
+        
+
+    </div>
+    
+    
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    {% include 'myblog/footer.html'%}
+  </body>
+</html>
